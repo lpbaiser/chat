@@ -1,0 +1,21 @@
+Implementar um serviço de chat que possibilita:
+
+- Envio de mensagens para um grupo de pessoas (Multicast IP)
+
+- Envio de mensagens individuais para as pessoas conectadas (UDP)
+
+- Compartilhamento de download de arquivos (TCP)
+
+- Uma interface de interação (GUI ou CLI)
+
+Protocolo Textual:
+
+- JOIN [Apelido] | JOINACK [Apelido]
+- LEAVE [Apelido]
+- MSG [Apelido] "texto"
+- MSGIDV From [Apelido] TO [APELIDO] "texto"
+- LISTFILES [Apelido]
+- FILES [arq1, arq2]
+- DOWNFILE [Apelido] nome_arquivo
+- DOWNFILE [ip, porta]
+
