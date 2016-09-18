@@ -5,7 +5,12 @@
  */
 package chat;
 
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.InetAddress;
 import java.net.MulticastSocket;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 
 /**
  *
@@ -13,13 +18,37 @@ import java.net.MulticastSocket;
  */
 public class Client {
 
-    private String idGroup;
-    private int port;
-    private String apelido;
     private MulticastSocket multicastSocket;
-    
-    public Client() {
-        
+    private final Runnable listener;
+    private final Runnable talker;
+
+    public Client(String idGroup, int port, String apelido) {
+
+        try {
+            InetAddress group = InetAddress.getByName(idGroup);
+
+            //cria um socket multicast
+            multicastSocket = new MulticastSocket(port);
+
+            //adiciona o host ao grupo
+            multicastSocket.joinGroup(group);
+            //Instancia a classe Listener com o multicastSocket e o apelido do cliente
+            this.listener = new Listener(multicastSocket, apelido);
+
+            //Instancia a classe Talker com o multicastSocket e o apelido do cliente
+            this.talker = new Talker(multicastSocket, apelido);
+
+            Thread l = new Thread(this.listener);
+            Thread t = new Thread(this.talker);
+            t.start();
+            l.start();
+
+        } catch (SocketException | UnknownHostException ex) {
+            throw new RuntimeException(ex.getMessage());
+        } catch (IOException ex) {
+            throw new RuntimeException(ex.getMessage());
+        }
+
     }
-    
+
 }

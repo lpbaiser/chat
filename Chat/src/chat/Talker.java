@@ -5,14 +5,26 @@
  */
 package chat;
 
+import java.net.MulticastSocket;
+
 /**
  *
  * @author leonardo
  */
-public class Talker implements Runnable{
+public class Talker implements Runnable {
+    
+    private final MulticastSocket multicastSocket;
+    private byte[] buffer;
+    private String apelido;
+
+    public Talker(MulticastSocket multicastSocket, String apelido) {
+        this.multicastSocket = multicastSocket;
+        this.buffer = new byte[1000];
+        this.apelido = apelido;
+    }
 
     @Override
     public void run() {
     }
-    
+
 }
