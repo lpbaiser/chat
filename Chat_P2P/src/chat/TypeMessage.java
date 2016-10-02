@@ -3,14 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package chat;
 
-import javax.swing.JFrame;
+package chat;
 
 /**
  *
- * @author leonardo
+ * @author Leonardo Baiser <lpbaiser@gmail.com>
  */
-public class GUI extends JFrame{
-    
+public class TypeMessage {
+
 }

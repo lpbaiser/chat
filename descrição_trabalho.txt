@@ -1,21 +1,24 @@
-Implementar um serviço de chat que possibilita:
+Implementar um serviço de chat que possibilite:
+- envio de mensagens para um grupo de pessoas (MulticastSocket)
+- envio de mensagens individuais para as pessoas ativas (DatagramSocket) - receber na porta 6799
+- compartilhamento e download de arquivos (Socket -- TCP) 
+- interface de interação (GUI ou CLI)
 
-- Envio de mensagens para um grupo de pessoas (Multicast IP)
-
-- Envio de mensagens individuais para as pessoas conectadas (UDP)
-
-- Compartilhamento de download de arquivos (TCP)
-
-- Uma interface de interação (GUI ou CLI)
-
-Protocolo Textual:
-
-- JOIN [Apelido] | JOINACK [Apelido]
-- LEAVE [Apelido]
-- MSG [Apelido] "texto"
-- MSGIDV From [Apelido] TO [APELIDO] "texto"
-- LISTFILES [Apelido]
-- FILES [arq1, arq2]
-- DOWNFILE [Apelido] nome_arquivo
-- DOWNFILE [ip, porta]
-
+- protocolo textual:
+   -- JOIN [apelido] 
+   * junta-se ao grupo de conversação 
+   -- JOINACK [apelido] 
+   * resposta ao JOIN para possibilitar a manutenção da lista de usuários ativos
+   -- MSG [apelido] "texto"
+   * mensagem enviada a todos os membros do grupo pelo IP 225.1.2.3 e porta 6789 
+   -- MSGIDV FROM [apelido] TO [apelido] "texto" 
+   * mensagem enviada a um membro do grupo para ser recebida na porta 6799
+   -- LISTFILES [apelido] 
+   * solicitação de listagem de arquivos para um usuário 
+   -- FILES [arq1, arq2, arqN] 
+   * resposta para o LISTFILES
+   -- DOWNFILE [apelido] filename 
+   * solicita arquivo do servidor. 
+   -- DOWNINFO [filename, size, IP, PORTA] 
+   * resposta com informações sobre o arquivo e conexão TCP. 
+   -- LEAVE [apelido] * deixa o grupo de conversação
